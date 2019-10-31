@@ -13,7 +13,7 @@ services:
       - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
       - "--certificatesresolvers.mytlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
       - "--certificatesresolvers.mytlschallenge.acme.email=${acme_email}"
-      - "--certificatesresolvers.mytlschallenge.acme.storage=$(pwd)/letsencrypt/acme.json"
+      - "--certificatesresolvers.mytlschallenge.acme.storage=${rootdir}/letsencrypt/acme.json"
     restart: unless-stopped
     ports:
       - "80:80"
