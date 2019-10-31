@@ -1,0 +1,26 @@
+
+# Global configuration
+[global]
+  checkNewVersion = true
+  sendAnonymousUsage = true
+
+# Entrypoints configuration
+  [entryPoints.web]
+    address = ":80"
+
+  [entryPoints.websecure]
+    address = ":443"
+
+# Traefik logs configuration
+[log]
+
+
+# API and dashboard configuration
+[api]
+
+# Ping configuration
+[ping]
+
+# Docker configuration backend
+# Enable Docker configuration backend
+[providers.docker]
