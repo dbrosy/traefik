@@ -10,10 +10,10 @@ services:
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
-      - "--certificatesresolvers.mytlschallenge.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.mytlschallenge.acme.email=${ACME_EMAIL}"
-      - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.sample.acme.tlschallenge=true"
+      - "--certificatesresolvers.sample.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.sample.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.sample.acme.storage=/letsencrypt/acme.json"
     restart: unless-stopped
     ports:
       - "80:80"
@@ -26,4 +26,7 @@ services:
     # A container that exposes an API to show its IP address
     image: containous/whoami
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host('whoami.${DOMAIN})"
+      - "traefik.http.routers.whoami.entrypoints=websecure"
+      - "traefik.http.routers.whoami.tls.certresolver=sample"    
