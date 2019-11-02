@@ -2,31 +2,39 @@ version: '3'
 
 services:
   traefik:
-    image: traefik:v2.0
+    image: traefik:v2.0.4
     container_name: "traefik"
-    command: 
-      - "--log.level=DEBUG"
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.sample.acme.tlschallenge=true"
-      - "--certificatesresolvers.sample.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.sample.acme.email=${ACME_EMAIL}"
-      - "--certificatesresolvers.sample.acme.storage=/letsencrypt/acme.json"
     restart: unless-stopped
+    command: 
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --api=true
+      - --log.level=DEBUG
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "./letsencrypt:/letsencrypt"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.enable=true"
+
+      # Dashboard
+      - "traefik.http.routers.traefik.rule=Host(`proxy.${DOMAIN}`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls=true"
 
   whoami:
     # A container that exposes an API to show its IP address
     image: containous/whoami
+    command:
+      - "--port=5678"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(whoami.${DOMAIN})"
       - "traefik.http.routers.whoami.entrypoints=websecure"
-      - "traefik.http.routers.whoami.tls.certresolver=sample"    
+      - "traefik.http.routers.whoami.tls=true"
+      - "traefik.http.services.whoami.loadbalancer.server.port=5678"
+      
