@@ -1,4 +1,4 @@
-### docker-compose.yml
+### docker-compose -f `docker-compose.yml` up -d
 
 #### Start your `reverse-proxy` with the following command:
 
@@ -14,4 +14,4 @@ http://yourdomainorip:8080 gives you Traefik Dashboard
 ```
 
 
-### docker-compose-basic.yml
+### docker-compose -f `docker-compose-basic.yml` up -d
