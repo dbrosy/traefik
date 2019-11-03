@@ -22,5 +22,6 @@ services:
     container_name: "traefik-whoami"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+      # DOMAIN variable is defined in .env file
+      - "traefik.http.routers.whoami.rule=Host(`whoami.${DOMAIN}`)"
       - "traefik.http.routers.whoami.entrypoints=web"
