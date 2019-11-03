@@ -1,4 +1,4 @@
-### docker-copmose.yml
+### docker-compose.yml
 
 #### Start your `reverse-proxy` with the following command:
 
