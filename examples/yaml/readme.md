@@ -18,7 +18,7 @@ http://yourdomainorip:8080 gives you Traefik Dashboard
 ```
 docker-compose -f docker-compose-basic.yml  up -d reverse-proxy
 ```
-```
+```diff
 ! Results
 
 http://yourdomainorip:80 gives "404 page not found"
