@@ -44,7 +44,7 @@ services:
     image: containous/whoami
     container_name: "whoami"
     labels:
-      - "traefik.http.routers.whoami.rule=Host(`whoami.brosy.dev`)"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.${DOMAIN}`)"
       #- "traefik.http.routers.whoami.middlewares=auth"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=leresolver"
