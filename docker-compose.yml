@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     command:
       - --log.level=DEBUG
+      # Entrypoints
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --providers.docker
@@ -20,8 +21,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./acme.json
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./acme.json:/acme.json"
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)"
