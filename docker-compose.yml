@@ -27,7 +27,7 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.tls.certresolver=leresolver"
       - "traefik.http.routers.traefik.middlewares=authtraefik"
-      - "traefik.http.middlewares.authtraefik.basicauth.users=${HTTP_AUTH_USER}"
+      - "traefik.http.middlewares.authtraefik.basicauth.users=admin:$$apr1$$yRb7Usus$$2fhN5HA0p3Tkrgu2eJvD21"
 
       # global redirect to https
       #- "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
@@ -45,6 +45,6 @@ services:
       #- "traefik.http.routers.whoami.middlewares=auth"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=leresolver"
-      #- "traefik.http.middlewares.auth.basicauth.users=${HTTP_AUTH_USER}"
+      #- "traefik.http.middlewares.auth.basicauth.users=admin:$$apr1$$yRb7Usus$$2fhN5HA0p3Tkrgu2eJvD21"
 
 # touch acme.json; chmod 600 acme.json
