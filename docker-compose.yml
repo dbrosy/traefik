@@ -19,7 +19,8 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       #- "./acme.json:/acme.json"
-      - ./letsencrypt:/letsencrypt
+      #- ./letsencrypt:/letsencrypt
+      - letsencrypt:/letsencrypt
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(${TRAEFIK_DOMAIN})"
@@ -46,5 +47,8 @@ services:
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=leresolver"
       #- "traefik.http.middlewares.auth.basicauth.users=admin:$apr1$ISWtC/4Q$RD9u5Z2OUj35tEStAEXeP0" # admin/password
+
+volumes:
+  letsencrypt:
 
 # touch acme.json; chmod 600 acme.json
