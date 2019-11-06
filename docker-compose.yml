@@ -17,6 +17,7 @@ services:
       - --certificatesresolvers.default.acme.email=${ACME_EMAIL}
       - --certificatesresolvers.default.acme.storage=/letsencrypt/acme.json
       - --certificatesResolvers.default.acme.httpChallenge=true
+      - --certificatesResolvers.default.acme.httpChallenge.entryPoint=web
     ports:
       - "80:80"
       - "443:443"
