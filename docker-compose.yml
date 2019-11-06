@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   traefik:
-    image: "traefik:v2.0.0"
+    image: "traefik:v2.0.4"
     command:
       - --log.level=DEBUG
       - --entrypoints.web.address=:80
@@ -13,6 +13,10 @@ services:
       - --certificatesresolvers.leresolver.acme.email=${ACME_EMAIL}
       - --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
+      # Added to fix issue at home
+      - --certificatesresolvers.default.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.default.acme.storage=/letsencrypt/acme.json
+      - --certificatesResolvers.default.acme.httpChallenge=true
     ports:
       - "80:80"
       - "443:443"
@@ -26,7 +30,8 @@ services:
       - "traefik.http.routers.traefik.rule=Host(${TRAEFIK_DOMAIN})"
       - "traefik.http.routers.my-app.entrypoints=web"
       - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.tls.certresolver=leresolver"
+      #- "traefik.http.routers.traefik.tls.certresolver=leresolver"
+      - "traefik.http.routers.traefik.tls.certresolver=default"
       - "traefik.http.routers.traefik.middlewares=authtraefik"
       - "traefik.http.middlewares.authtraefik.basicauth.users=admin:$apr1$ISWtC/4Q$RD9u5Z2OUj35tEStAEXeP0" # admin/password
 
@@ -45,7 +50,8 @@ services:
       - "traefik.http.routers.whoami.rule=Host(${WHOAMI_DOMAIN})"
       #- "traefik.http.routers.whoami.middlewares=auth"
       - "traefik.http.routers.whoami.entrypoints=websecure"
-      - "traefik.http.routers.whoami.tls.certresolver=leresolver"
+      #- "traefik.http.routers.whoami.tls.certresolver=leresolver"
+      #- "traefik.http.routers.whoami.tls.certresolver=default"
       #- "traefik.http.middlewares.auth.basicauth.users=admin:$apr1$ISWtC/4Q$RD9u5Z2OUj35tEStAEXeP0" # admin/password
 
 volumes:
