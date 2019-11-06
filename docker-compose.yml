@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   traefik:
-    image: "traefik:v2.0.4"
+    image: "traefik:v2.0.0"
     command:
       - --log.level=DEBUG
       - --entrypoints.web.address=:80
