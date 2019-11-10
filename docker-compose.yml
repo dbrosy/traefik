@@ -10,11 +10,11 @@ services:
       - --providers.docker
       - --api
       #- --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.leresolver.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.leresolver.acme.email=${TRAEFIK_ACME_EMAIL}
       - --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
       - --certificatesresolvers.leresolver.acme.tlschallenge=true
       # Added to fix issue at home
-      #- --certificatesresolvers.default.acme.email=${ACME_EMAIL}
+      #- --certificatesresolvers.default.acme.email=${TRAEFIK_ACME_EMAIL}
       #- --certificatesresolvers.default.acme.storage=/letsencrypt/acme.json
       #- --certificatesResolvers.default.acme.httpChallenge=true
       #- --certificatesResolvers.default.acme.httpChallenge.entryPoint=web
