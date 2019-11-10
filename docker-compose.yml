@@ -34,7 +34,7 @@ services:
       - "traefik.http.routers.traefik.tls.certresolver=leresolver"
       #- "traefik.http.routers.traefik.tls.certresolver=default"
       - "traefik.http.routers.traefik.middlewares=authtraefik"
-      - "traefik.http.middlewares.authtraefik.basicauth.users=admin:$apr1$ISWtC/4Q$RD9u5Z2OUj35tEStAEXeP0" # admin/password
+      - "traefik.http.middlewares.authtraefik.basicauth.users=admin:$$apr1$$ISWtC/4Q$$RD9u5Z2OUj35tEStAEXeP0" # admin/password
 
       # global redirect to https
       #- "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
@@ -53,7 +53,7 @@ services:
   #    - "traefik.http.routers.whoami.entrypoints=websecure"
       #- "traefik.http.routers.whoami.tls.certresolver=leresolver"
       #- "traefik.http.routers.whoami.tls.certresolver=default"
-      #- "traefik.http.middlewares.auth.basicauth.users=admin:$apr1$ISWtC/4Q$RD9u5Z2OUj35tEStAEXeP0" # admin/password
+      #- "traefik.http.middlewares.auth.basicauth.users=admin:admin:$$apr1$$ISWtC/4Q$$RD9u5Z2OUj35tEStAEXeP0" # admin/password
 
 volumes:
   letsencrypt:
