@@ -30,7 +30,7 @@ services:
       - "traefik.http.routers.traefik.tls.certresolver=leresolver"
       - "traefik.http.routers.traefik.middlewares=authtraefik"
       - "traefik.http.middlewares.authtraefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
-      - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=${TRAEFIK_IPWHITELIST}"
+      - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=${TRAEFIK_IP_WHITELIST}"
 
       # global redirect to https
       - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
