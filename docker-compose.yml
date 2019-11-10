@@ -28,13 +28,13 @@ services:
       - letsencrypt:/letsencrypt
     labels:
       # Dashboard
-      - "traefik.http.routers.traefik.rule=Host(${TRAEFIK_DOMAIN})"
+      - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.my-app.entrypoints=web"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.tls.certresolver=leresolver"
       #- "traefik.http.routers.traefik.tls.certresolver=default"
       - "traefik.http.routers.traefik.middlewares=authtraefik"
-      - "traefik.http.middlewares.authtraefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}" # admin/password
+      - "traefik.http.middlewares.authtraefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
 
       # global redirect to https
       #- "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
@@ -48,12 +48,12 @@ services:
   #  image: containous/whoami
   #  container_name: "whoami"
   #  labels:
-  #    - "traefik.http.routers.whoami.rule=Host(${WHOAMI_DOMAIN})"
+  #    - "traefik.http.routers.whoami.rule=Host(`${WHOAMI_DOMAIN}`)"
       #- "traefik.http.routers.whoami.middlewares=auth"
   #    - "traefik.http.routers.whoami.entrypoints=websecure"
       #- "traefik.http.routers.whoami.tls.certresolver=leresolver"
       #- "traefik.http.routers.whoami.tls.certresolver=default"
-      #- "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}" # admin/password
+      #- "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
 
 volumes:
   letsencrypt:
