@@ -2,10 +2,10 @@ global:
   checkNewVersion: false
   sendAnonymousUsage: false
 entryPoints:
-  web:
+  http:
     # Listen on port 80 for incoming requests
     address: :80
-  websecure:
+  https:
     # Listen on port 443 for incoming requests
     address: :443
 providers:
