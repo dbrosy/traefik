@@ -5,15 +5,15 @@ services:
     image: "traefik:v2.0.4"
     container_name: "traefik"
     command:
-      #- --log.level=DEBUG
-      #- --entrypoints.web.address=:80
-      #- --entrypoints.websecure.address=:443
-      #- --providers.docker
-      #- --api
+      - --log.level=DEBUG
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --providers.docker
+      - --api
       #- --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
-      #- --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
-      #- --certificatesresolvers.leresolver.acme.tlschallenge=true
+      - --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.leresolver.acme.tlschallenge=true
       
     ports:
       - "80:80"
@@ -23,11 +23,12 @@ services:
       #- "./acme.json:/acme.json"
       #- ./letsencrypt:/letsencrypt
       - letsencrypt:/letsencrypt
-      - ./traefik.yml:/etc/traefik/traefik.yml
+      #- ./traefik.yml:/etc/traefik/traefik.yml
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.traefik.entrypoints=http"
+      #- "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.entrypoints=web"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.middlewares=authtraefik"
