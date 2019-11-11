@@ -9,10 +9,10 @@ services:
       - --entrypoints.websecure.address=:443
       - --providers.docker
       - --api
-      #- --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.leresolver.acme.email=${TRAEFIK_ACME_EMAIL}
-      - --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.leresolver.acme.tlschallenge=true
+      #- --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+      - --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
       
     ports:
       - "80:80"
@@ -27,7 +27,7 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.my-app.entrypoints=web"
       - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.tls.certresolver=leresolver"
+      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.middlewares=authtraefik"
       - "traefik.http.middlewares.authtraefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=${TRAEFIK_IP_WHITELIST}"
@@ -47,7 +47,7 @@ services:
       #- "traefik.http.routers.whoami.rule=Host(`${WHOAMI_DOMAIN}`)"
       #- "traefik.http.routers.whoami.middlewares=auth"
       #- "traefik.http.routers.whoami.entrypoints=websecure"
-      #- "traefik.http.routers.whoami.tls.certresolver=leresolver"
+      #- "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
       #- "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
 
 volumes:
