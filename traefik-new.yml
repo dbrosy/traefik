@@ -1,0 +1,24 @@
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+entryPoints:
+  http:
+    # Listen on port 80 for incoming requests
+    address: :80
+  https:
+    # Listen on port 443 for incoming requests
+    address: :443
+providers:
+  docker: {}
+api:
+  dashboard: true
+  debug: true
+log:
+  level: DEBUG
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      #caserver: https://acme-staging-v02.api.letsencrypt.org/directory
+      #email: ${TRAEFIK_ACME_EMAIL}
+      storage: /letsencrypt/acme.json
+      tlsChallenge: {}
