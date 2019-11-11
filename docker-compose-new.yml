@@ -22,7 +22,6 @@ services:
       #- "./acme.json:/acme.json"
       #- ./letsencrypt:/letsencrypt
       - letsencrypt:/letsencrypt
-      - ./
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
