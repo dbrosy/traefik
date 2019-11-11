@@ -3,6 +3,7 @@ version: "3.7"
 services:
   traefik:
     image: "traefik:v2.0.4"
+    container_name: "traefik"
     command:
       #- --log.level=DEBUG
       #- --entrypoints.web.address=:80
@@ -43,7 +44,7 @@ services:
 
   netdata:
     image: netdata/netdata
-    hostname: netdata
+    container_name: "netdata"
     command:
       - --providers.docker.network=proxy
     ports:
@@ -58,9 +59,9 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
     labels:
+      - "traefik.enable=true"
       - "traefik.http.routers.netdata.rule=Host(`${NETDATA_DOMAIN}`)"
-      #- "traefik.http.services.netdata.loadbalancer.server.port=19999"
-      #- "traefik.http.routers.netdata.entrypoints=http"
+      - "traefik.http.routers.netdata.entrypoints=http"
 
 networks:
   proxy:
