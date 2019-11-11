@@ -41,6 +41,29 @@ services:
       # middleware redirect
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
+  netdata:
+    image: netdata/netdata
+    hostname: netdata
+    command:
+      - --providers.docker.network=proxy
+    ports:
+      - 19999:19999
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    networks:
+      - proxy
+    volumes:
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+    labels:
+      - "traefik.http.routers.netdata.rule=Host(`${NETDATA_DOMAIN}`)"
+      - "traefik.http.services.netdata.loadbalancer.server.port=19999"
+      - "traefik.http.routers.netdata.entrypoints=http"
+
 networks:
   proxy:
     external: true
@@ -49,3 +72,4 @@ networks:
 
 volumes:
   letsencrypt:
+
