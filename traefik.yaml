@@ -1,2 +1,15 @@
+log:
+  level: DEBUG
+
+entryPoints:
+  web:
+    # Listen on port 80 for incoming requests
+    address: :80
+  websecure:
+    # Listen on port 443 for incoming requests
+    address: :443
+
 providers:
   docker: {}
+
+api: {}
