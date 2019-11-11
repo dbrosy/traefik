@@ -5,8 +5,8 @@ services:
     image: "traefik:v2.0.4"
     command:
       - --log.level=DEBUG
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
+      - --entrypoints.http.address=:80
+      - --entrypoints.https.address=:443
       - --providers.docker
       - --api
       #- --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
@@ -26,7 +26,7 @@ services:
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.my-app.entrypoints=web"
+      - "traefik.http.routers.my-app.entrypoints=http"
       - "traefik.http.routers.traefik.service=api@internal"
       - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
       - "traefik.http.routers.traefik.middlewares=authtraefik"
@@ -35,7 +35,7 @@ services:
 
       # global redirect to https
       - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
-      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.entrypoints=http"
       - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
 
       # middleware redirect
@@ -47,7 +47,7 @@ services:
     #labels:
       #- "traefik.http.routers.whoami.rule=Host(`${WHOAMI_DOMAIN}`)"
       #- "traefik.http.routers.whoami.middlewares=auth"
-      #- "traefik.http.routers.whoami.entrypoints=websecure"
+      #- "traefik.http.routers.whoami.entrypoints=https"
       #- "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
       #- "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
 
