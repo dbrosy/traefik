@@ -12,4 +12,13 @@ entryPoints:
   websecure:
     # Listen on port 443 for incoming requests
     address: :443
-api: {}
+api:
+  dashboard: true
+  debug: true
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      #caserver: https://acme-staging-v02.api.letsencrypt.org/directory
+      email: ${TRAEFIK_ACME_EMAIL}
+      storage: /letsencrypt/acme.json
+      tlsChallenge: {}
