@@ -4,23 +4,13 @@ services:
   traefik:
     image: "traefik:v2.0.4"
     command:
-      #- --log.level=DEBUG
-      #- --entrypoints.http.address=:80
-      #- --entrypoints.https.address=:443
-      #- --providers.docker
-      #- --api
-      #- --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
-      #- --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
-      #- --certificatesresolvers.letsencrypt.acme.tlschallenge=true
-      
+  
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      #- "./acme.json:/acme.json"
-      #- ./letsencrypt:/letsencrypt
       - letsencrypt:/letsencrypt
       - ./traefik-new.yml:/etc/traefik/traefik.yml
     labels:
@@ -41,9 +31,9 @@ services:
       # middleware redirect
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
-  whoami:
-    image: containous/whoami
-    container_name: "whoami"
+#  whoami:
+#    image: containous/whoami
+#    container_name: "whoami"
     #labels:
       #- "traefik.http.routers.whoami.rule=Host(`${WHOAMI_DOMAIN}`)"
       #- "traefik.http.routers.whoami.middlewares=auth"
