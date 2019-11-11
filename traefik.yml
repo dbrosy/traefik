@@ -1,6 +1,10 @@
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
 log:
   level: DEBUG
-
+providers:
+  docker: {}
 entryPoints:
   web:
     # Listen on port 80 for incoming requests
@@ -8,8 +12,4 @@ entryPoints:
   websecure:
     # Listen on port 443 for incoming requests
     address: :443
-
-providers:
-  docker: {}
-
 api: {}
