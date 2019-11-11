@@ -3,14 +3,14 @@ version: "3.7"
 services:
   traefik:
     image: "traefik:v2.0.4"
-    #command:
+    command:
       #- --log.level=DEBUG
       #- --entrypoints.web.address=:80
       #- --entrypoints.websecure.address=:443
       #- --providers.docker
       #- --api
       #- --certificatesresolvers.leresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      #- --certificatesresolvers.leresolver.acme.email=${TRAEFIK_ACME_EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
       #- --certificatesresolvers.leresolver.acme.storage=/letsencrypt/acme.json
       #- --certificatesresolvers.leresolver.acme.tlschallenge=true
       
