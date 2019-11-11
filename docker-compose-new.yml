@@ -1,4 +1,4 @@
-version: "3"
+version: "3.7"
 
 services:
   traefik:
@@ -22,7 +22,7 @@ services:
       #- "./acme.json:/acme.json"
       #- ./letsencrypt:/letsencrypt
       - letsencrypt:/letsencrypt
-      - ./traefik.yaml:/etc/traefik/
+      - ./traefik.yml:/etc/traefik/traefik.yml
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
