@@ -4,15 +4,15 @@ services:
   traefik:
     image: "traefik:v2.0.4"
     command:
-      - --log.level=DEBUG
-      - --entrypoints.http.address=:80
-      - --entrypoints.https.address=:443
-      - --providers.docker
-      - --api
+      #- --log.level=DEBUG
+      #- --entrypoints.http.address=:80
+      #- --entrypoints.https.address=:443
+      #- --providers.docker
+      #- --api
       #- --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
-      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      #- --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      #- --certificatesresolvers.letsencrypt.acme.tlschallenge=true
       
     ports:
       - "80:80"
@@ -22,6 +22,7 @@ services:
       #- "./acme.json:/acme.json"
       #- ./letsencrypt:/letsencrypt
       - letsencrypt:/letsencrypt
+      - ./traefik-new.yml:/etc/traefik/traefik.yml
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
