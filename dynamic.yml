@@ -1,7 +1,7 @@
 http:
   routers:
     traefik:
-      rule: Host(`${TRAEFIK_DOMAIN}`)
+      #rule: Host(`${TRAEFIK_DOMAIN}`)
       entrypoints: http
       service: api@internal
       tls:
