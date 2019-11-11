@@ -3,7 +3,7 @@ version: "3.7"
 services:
   traefik:
     image: "traefik:v2.0.4"
-    command:
+    #command:
       #- --log.level=DEBUG
       #- --entrypoints.web.address=:80
       #- --entrypoints.websecure.address=:443
