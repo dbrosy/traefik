@@ -52,8 +52,6 @@ services:
       - SYS_PTRACE
     security_opt:
       - apparmor:unconfined
-    networks:
-      - proxy
     volumes:
       - /etc/passwd:/host/etc/passwd:ro
       - /etc/group:/host/etc/group:ro
@@ -61,8 +59,8 @@ services:
       - /sys:/host/sys:ro
     labels:
       - "traefik.http.routers.netdata.rule=Host(`${NETDATA_DOMAIN}`)"
-      - "traefik.http.services.netdata.loadbalancer.server.port=19999"
-      - "traefik.http.routers.netdata.entrypoints=http"
+      #- "traefik.http.services.netdata.loadbalancer.server.port=19999"
+      #- "traefik.http.routers.netdata.entrypoints=http"
 
 networks:
   proxy:
