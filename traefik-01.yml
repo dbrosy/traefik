@@ -2,10 +2,10 @@ global:
   checkNewVersion: false
   sendAnonymousUsage: false
 entryPoints:
-  http:
+  web:
     # Listen on port 80 for incoming requests
     address: :80
-  https:
+  websecure:
     # Listen on port 443 for incoming requests
     address: :443
   traefik:
