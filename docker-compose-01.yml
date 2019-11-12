@@ -5,11 +5,11 @@ services:
     image: "traefik:v2.0.4"
     restart: unless-stopped
     command:
-      - --log.level=DEBUG
-      - --entrypoints.web.address=:80
-      - --entrypoints.websecure.address=:443
-      - --providers.docker
-      - --api
+      #- --log.level=DEBUG
+      #- --entrypoints.web.address=:80
+      #- --entrypoints.websecure.address=:443
+      #- --providers.docker
+      #- --api
       #- --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
@@ -23,6 +23,7 @@ services:
       #- "./acme.json:/acme.json"
       #- ./letsencrypt:/letsencrypt
       - letsencrypt:/letsencrypt
+      - ./traefik-01.yml:/etc/traefik/traefik.yml
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
