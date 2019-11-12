@@ -14,7 +14,7 @@ entryPoints:
 providers:
   docker: {}
   file:
-    filename: ./dynamic-02.yml
+    filename: dynamic-02.yml
 api:
   dashboard: true
   debug: true
