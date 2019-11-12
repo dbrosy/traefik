@@ -1,5 +1,6 @@
 ## Dynamic configuration
 http:
+  # Add the router
   routers:
     traefik:
       rule: "Host(`${TRAEFIK_DOMAIN}`)"
@@ -13,6 +14,7 @@ http:
       rule: hostregexp(`{host:.+}`)
       entrypoints: web
       middlewares: redirect-to-https
+  # Add the middleware
   middlewares:
     auth:
       basicauth:
@@ -24,6 +26,7 @@ http:
     redirect-to-https:
       redirectscheme.echeme: https
 tcp:
+  # Add the router
   routers:
     rancher:
       rule: HostSNI(`${RANCHER_DOMAIN}`)
@@ -31,8 +34,9 @@ tcp:
       tls:
         passthrough: true
       service: rancher
+  # Add the service
   services:
-    my-service:
+    rancher:
       loadBalancer:
         servers:
         - url: "http://192.168.71.146:443/"
