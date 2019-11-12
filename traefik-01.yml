@@ -1,0 +1,20 @@
+global:
+  checkNewVersion: false
+  sendAnonymousUsage: false
+entryPoints:
+  http:
+    # Listen on port 80 for incoming requests
+    address: :80
+  https:
+    # Listen on port 443 for incoming requests
+    address: :443
+  traefik:
+    # Listen on port 8080 for incoming requests
+    address: :8080    
+providers:
+  docker: {}
+api:
+  dashboard: true
+  debug: true
+log:
+  level: DEBUG
