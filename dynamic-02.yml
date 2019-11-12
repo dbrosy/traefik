@@ -30,19 +30,19 @@ http:
     redirect-to-https:
       redirectscheme.echeme:
       - https
-tcp:
+#tcp:
   # Add the router
-  routers:
-    rancher:
-      rule: HostSNI(`${RANCHER_DOMAIN}`)
-      entrypoints:
-      - websecure
-      tls:
-        passthrough: true
-      service: rancher
+#  routers:
+#    rancher:
+#      rule: HostSNI(`${RANCHER_DOMAIN}`)
+#      entrypoints:
+#      - websecure
+#      tls:
+#        passthrough: true
+#      service: rancher
   # Add the service
-  services:
-    rancher:
-      loadBalancer:
-        servers:
-        - url: "http://192.168.71.146:443/"
+#  services:
+#    rancher:
+#      loadBalancer:
+#        servers:
+#        - url: "http://192.168.71.146:443/"
