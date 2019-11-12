@@ -1,23 +1,15 @@
+# traefik using traefik.yml static configuration file
+
 version: "3.7"
 
 services:
   traefik:
     image: "traefik:v2.0.4"
-    restart: unless-stopped
-    #command:
-      #- --log.level=DEBUG
-      #- --entrypoints.web.address=:80
-      #- --entrypoints.websecure.address=:443
-      #- --providers.docker
-      #- --api
-      #- --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      #- --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
-      #- --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
-      #- --certificatesresolvers.letsencrypt.acme.tlschallenge=true
-      
+    restart: unless-stopped     
     ports:
       - "80:80"
       - "443:443"
+      - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       #- "./acme.json:/acme.json"
