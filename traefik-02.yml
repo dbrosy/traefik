@@ -13,8 +13,8 @@ entryPoints:
     address: :8080    
 providers:
   docker: {}
-  file:
-    filename: /etc/traefik/dynamic.yml
+#  file:
+#    filename: /etc/traefik/dynamic.yml
 api:
   dashboard: true
   debug: true
