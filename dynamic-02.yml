@@ -3,34 +3,40 @@ http:
   # Add the router
   routers:
     traefik:
-      rule: "Host(`${TRAEFIK_DOMAIN}`)"
+      rule: Host(`${TRAEFIK_DOMAIN}`)
       entryPoints:
-        - "traefik"
+      - traefik
       service: api@internal
       tls:
         certresolver: letsencrypt
-      middlewares: auth
+      middlewares: 
+      - authtraefik
     http-catchall:
       rule: hostregexp(`{host:.+}`)
-      entrypoints: web
-      middlewares: redirect-to-https
+      entrypoints: 
+      - web 
+      middlewares:
+      - redirect-to-https
   # Add the middleware
   middlewares:
-    auth:
+    authtraefik:
       basicauth:
         users:
         - ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
     test-ipwhitelist:
       ipwhitelist:
-        sourcerange: ${TRAEFIK_IP_WHITELIST}
+        sourcerange: 
+        - ${TRAEFIK_IP_WHITELIST}
     redirect-to-https:
-      redirectscheme.echeme: https
+      redirectscheme.echeme:
+      - https
 tcp:
   # Add the router
   routers:
     rancher:
       rule: HostSNI(`${RANCHER_DOMAIN}`)
-      entrypoints: websecure
+      entrypoints:
+      - websecure
       tls:
         passthrough: true
       service: rancher
