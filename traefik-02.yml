@@ -13,6 +13,8 @@ entryPoints:
     address: :8080    
 providers:
   docker: {}
+  file:
+    filename: ./dynamic-02.yml
 api:
   dashboard: true
   debug: true
