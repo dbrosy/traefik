@@ -19,7 +19,7 @@ http:
     auth:
       basicauth:
         users:
-          - ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
+        - ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
     test-ipwhitelist:
       ipwhitelist:
         sourcerange: ${TRAEFIK_IP_WHITELIST}
