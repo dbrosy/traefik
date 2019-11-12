@@ -31,7 +31,7 @@ services:
       - "traefik.tcp.routers.rancher.service=rancher"
       - "traefik.tcp.routers.rancher.tls= {}"
       # tcp services
-      - "traefik.tcp.services.rancher.loadbalancer.servers.url=https://192.168.71.146"
+      #- "traefik.tcp.services.rancher.loadbalancer.servers.url=https://192.168.71.146"
       
 
       # global redirect to https
