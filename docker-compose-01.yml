@@ -11,9 +11,9 @@ services:
       #- --providers.docker
       #- --api
       #- --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-      - --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
-      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
-      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      #- --certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL}
+      #- --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      #- --certificatesresolvers.letsencrypt.acme.tlschallenge=true
       
     ports:
       - "80:80"
@@ -42,17 +42,5 @@ services:
       # middleware redirect
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
-#  whoami:
-#    image: containous/whoami
-#    container_name: "whoami"
-    #labels:
-      #- "traefik.http.routers.whoami.rule=Host(`${WHOAMI_DOMAIN}`)"
-      #- "traefik.http.routers.whoami.middlewares=auth"
-      #- "traefik.http.routers.whoami.entrypoints=websecure"
-      #- "traefik.http.routers.whoami.tls.certresolver=letsencrypt"
-      #- "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
-
 volumes:
   letsencrypt:
-
-# touch acme.json; chmod 600 acme.json
