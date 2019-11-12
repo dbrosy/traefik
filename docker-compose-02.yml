@@ -18,7 +18,7 @@ services:
       # Static Configuration
       - ./traefik-02.yml:/etc/traefik/traefik.yml
       - ./dynamic-02.yml:/etc/traefik/dynamic.yml
-    labels:
+    #labels:
       # Dashboard
       #- "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
       #- "traefik.http.routers.traefik.entrypoints=traefik"
