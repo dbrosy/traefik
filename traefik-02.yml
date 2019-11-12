@@ -14,7 +14,7 @@ entryPoints:
 providers:
   docker: {}
   file:
-    filename: "./dynamic-02.yml"
+    filename: /etc/traefik/dynamic.yml
 api:
   dashboard: true
   debug: true
