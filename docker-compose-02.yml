@@ -15,7 +15,7 @@ services:
       # use following line for acme.json to get around permissions issue
       - letsencrypt:/letsencrypt
       # Static Configuration
-      - ./traefik-01.yml:/etc/traefik/traefik.yml
+      - ./traefik-02.yml:/etc/traefik/traefik.yml
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
@@ -25,6 +25,14 @@ services:
       - "traefik.http.routers.traefik.middlewares=authtraefik"
       - "traefik.http.middlewares.authtraefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=${TRAEFIK_IP_WHITELIST}"
+      # tcp section
+      - "traefik.tcp.routers.rancher.rule=HostSNI(`${RANCHER_DOMAIN}`)"
+      - "traefik.tcp.routers.rancher.entrypoints=websecure"
+      - "traefik.tcp.routers.rancher.service=rancher"
+      - "traefik.tcp.routers.rancher.tls= {}"
+      # tcp services
+      - "traefik.tcp.services.rancher.loadbalancer.servers.url=https://192.168.71.146"
+      
 
       # global redirect to https
       - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
