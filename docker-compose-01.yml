@@ -12,9 +12,9 @@ services:
       - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      #- "./acme.json:/acme.json"
-      #- ./letsencrypt:/letsencrypt
+      # use following line for acme.json to get around permissions issue
       - letsencrypt:/letsencrypt
+      # Static Configuration
       - ./traefik-01.yml:/etc/traefik/traefik.yml
     labels:
       # Dashboard
