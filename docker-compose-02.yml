@@ -31,7 +31,7 @@ services:
       - "traefik.tcp.routers.rancher.entrypoints=websecure"
       - "traefik.tcp.routers.rancher.tls.passthrough=true"
       - "traefik.tcp.routers.rancher.service=rancher"
-      - "traefik.tcp.services.rancher.loadbalancer.server.address=192.168.71.146"
+      - "traefik.tcp.services.rancher.loadbalancer.servers.address=192.168.71.146"
       - "traefik.tcp.services.rancher.loadbalancer.server.port=443"
       
       # global redirect to https
