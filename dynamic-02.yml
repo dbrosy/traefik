@@ -12,7 +12,7 @@ http:
       middlewares:
         - authtraefik
     http-catchall:
-      rule: hostregexp(`{host:.+}`)
+      rule: "HostRegexp(`.*\.<tld>\.<tld>`)"
       entrypoints:
         - web
       middlewares:
