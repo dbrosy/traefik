@@ -3,6 +3,7 @@ version: "3.3"
 services:
   traefik:
     image: "traefik:v2.0.4"
+    restart: unless-stopped
     command:
       - --log.level=DEBUG
       - --entrypoints.web.address=:80
@@ -40,9 +41,9 @@ services:
       # middleware redirect
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
-  whoami:
-    image: containous/whoami
-    container_name: "whoami"
+#  whoami:
+#    image: containous/whoami
+#    container_name: "whoami"
     #labels:
       #- "traefik.http.routers.whoami.rule=Host(`${WHOAMI_DOMAIN}`)"
       #- "traefik.http.routers.whoami.middlewares=auth"
