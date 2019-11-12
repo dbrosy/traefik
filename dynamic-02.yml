@@ -1,1 +1,38 @@
-
+## Dynamic configuration
+http:
+  routers:
+    traefik:
+      rule: "Host(`${TRAEFIK_DOMAIN}`)"
+      entryPoints:
+        - "traefik"
+      service: api@internal
+      tls:
+        certresolver: letsencrypt
+      middlewares: auth
+    http-catchall:
+      rule: hostregexp(`{host:.+}`)
+      entrypoints: web
+      middlewares: redirect-to-https
+  middlewares:
+    auth:
+      basicauth:
+        users:
+          - ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
+    test-ipwhitelist:
+      ipwhitelist:
+        sourcerange: ${TRAEFIK_IP_WHITELIST}
+    redirect-to-https:
+      redirectscheme.echeme: https
+tcp:
+  routers:
+    rancher:
+      rule: HostSNI(`${RANCHER_DOMAIN}`)
+      entrypoints: websecure
+      tls:
+        passthrough: true
+      service: rancher
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+        - url: "http://192.168.71.146:443/"
