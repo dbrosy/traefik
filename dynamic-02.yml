@@ -5,44 +5,44 @@ http:
     traefik:
       rule: Host(`${TRAEFIK_DOMAIN}`)
       entryPoints:
-      - traefik
+        - traefik
       service: api@internal
       tls:
-        certresolver: letsencrypt
-      middlewares: 
-      - authtraefik
+        certResolver: letsencrypt
+      middlewares:
+        - authtraefik
     http-catchall:
       rule: hostregexp(`{host:.+}`)
-      entrypoints: 
-      - web 
+      entrypoints:
+        - web
       middlewares:
-      - redirect-to-https
+        - redirect-to-https
   # Add the middleware
   middlewares:
     authtraefik:
-      basicauth:
+      basicAuth:
         users:
-        - ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
+          - ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
     test-ipwhitelist:
-      ipwhitelist:
-        sourcerange: 
-        - ${TRAEFIK_IP_WHITELIST}
+      ipWhiteList:
+        sourceRange:
+          - ${TRAEFIK_IP_WHITELIST}
     redirect-to-https:
-      redirectscheme.echeme:
-      - https
-#tcp:
-  # Add the router
-#  routers:
-#    rancher:
-#      rule: HostSNI(`${RANCHER_DOMAIN}`)
-#      entrypoints:
-#      - websecure
-#      tls:
-#        passthrough: true
-#      service: rancher
-  # Add the service
-#  services:
-#    rancher:
-#      loadBalancer:
-#        servers:
-#        - url: "http://192.168.71.146:443/"
+      redirectScheme:
+        scheme: https
+tcp:
+# Add the router
+  routers:
+    rancher:
+      rule: HostSNI(`${RANCHER_DOMAIN}`)
+      entryPoints:
+      - websecure
+      tls:
+        passthrough: true
+      service: rancher
+# Add the service
+  services:
+    rancher:
+      loadBalancer:
+        servers:
+        - url: ${URL_SERVER_IP_PORT}
