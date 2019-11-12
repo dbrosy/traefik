@@ -3,3 +3,4 @@
 
 # ignore following files
 traefik*.yml
+dynamic*.yml
