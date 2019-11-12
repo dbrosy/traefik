@@ -1,10 +1,11 @@
-# traefik using traefik.yml static configuration file
+# traefik http & tcp using traefik.yml static configuration file
 
 version: "3.7"
 
 services:
   traefik:
     image: "traefik:v2.0.4"
+    container_name: "traefik"
     restart: unless-stopped     
     ports:
       - "80:80"
@@ -15,7 +16,8 @@ services:
       # use following line for acme.json to get around permissions issue
       - letsencrypt:/letsencrypt
       # Static Configuration
-      - ./traefik-01.yml:/etc/traefik/traefik.yml
+      - ./traefik.yml:/etc/traefik/traefik.yml
+      #- ./dynamic-02.yml:/etc/traefik/dynamic.yml
     labels:
       # Dashboard
       - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
@@ -25,7 +27,14 @@ services:
       - "traefik.http.routers.traefik.middlewares=authtraefik"
       - "traefik.http.middlewares.authtraefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
       - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=${TRAEFIK_IP_WHITELIST}"
-
+      # tcp section
+      - "traefik.tcp.routers.rancher.rule=HostSNI(`${RANCHER_DOMAIN}`)"
+      - "traefik.tcp.routers.rancher.entrypoints=websecure"
+      - "traefik.tcp.routers.rancher.tls.passthrough=true"
+      - "traefik.tcp.routers.rancher.service=rancher"
+      - "traefik.tcp.services.rancher.loadbalancer.servers.address=192.168.71.146"
+      - "traefik.tcp.services.rancher.loadbalancer.server.port=443"
+      
       # global redirect to https
       - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
       - "traefik.http.routers.http-catchall.entrypoints=web"
