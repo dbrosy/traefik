@@ -1,4 +1,11 @@
-# traefik http & tcp using traefik.yml static configuration file
+# traefik with following features:
+# * Dashboard enabled
+# * Basic Auth
+# * WhiteList
+# * Global http to https redirect
+# * Certificate Generation - Letsencrypt
+# * Static Configuration in yml file
+# * Dynamic Configuration in yml file
 
 version: "3.7"
 
@@ -13,35 +20,28 @@ services:
       - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      # use following line for acme.json to get around permissions issue
       - letsencrypt:/letsencrypt
       # Static Configuration
       - ./traefik.yml:/etc/traefik/traefik.yml
-      #- ./dynamic-02.yml:/etc/traefik/dynamic.yml
-    labels:
+      # dynamic Configuration
+      - ./dynamic.yml:/etc/traefik/dynamic.yml
+    #labels:
       # Dashboard
-      - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.traefik.entrypoints=traefik"
-      - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.traefik.middlewares=authtraefik"
-      - "traefik.http.middlewares.authtraefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
-      - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=${TRAEFIK_IP_WHITELIST}"
-      # tcp section
-      - "traefik.tcp.routers.rancher.rule=HostSNI(`${RANCHER_DOMAIN}`)"
-      - "traefik.tcp.routers.rancher.entrypoints=websecure"
-      - "traefik.tcp.routers.rancher.tls.passthrough=true"
-      - "traefik.tcp.routers.rancher.service=rancher"
-      - "traefik.tcp.services.rancher.loadbalancer.servers.address=192.168.71.146"
-      - "traefik.tcp.services.rancher.loadbalancer.server.port=443"
-      
+    #  - "traefik.http.routers.traefik.rule=Host(`${TRAEFIK_DOMAIN}`)"
+    #  - "traefik.http.routers.traefik.entrypoints=traefik"
+    #  - "traefik.http.routers.traefik.service=api@internal"
+    #  - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
+    #  - "traefik.http.routers.traefik.middlewares=authtraefik"
+    #  - "traefik.http.middlewares.authtraefik.basicauth.users=${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}"
+    #  - "traefik.http.middlewares.test-ipwhitelist.ipwhitelist.sourcerange=${TRAEFIK_IP_WHITELIST}"
+
       # global redirect to https
-      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
-      - "traefik.http.routers.http-catchall.entrypoints=web"
-      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+    #  - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+    #  - "traefik.http.routers.http-catchall.entrypoints=web"
+    #  - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
 
       # middleware redirect
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+    #  - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
 
 volumes:
   letsencrypt:

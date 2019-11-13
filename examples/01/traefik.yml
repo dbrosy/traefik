@@ -21,5 +21,6 @@ log:
 certificatesResolvers:
   letsencrypt:
     acme:
+      #email: ${TRAEFIK_ACME_EMAIL}
       storage: /letsencrypt/acme.json
       tlsChallenge: {}
