@@ -11,8 +11,9 @@ http:
         certResolver: letsencrypt
       middlewares:
         - authtraefik
+
     http-catchall:
-      rule: "HostRegexp(`.*\.<tld>\.<tld>`)"
+      rule: HostRegexp(`{host:.+}`)
       entrypoints:
         - web
       middlewares:
