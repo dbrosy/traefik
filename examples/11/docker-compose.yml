@@ -43,5 +43,6 @@ services:
 
 volumes:
   letsencrypt:
+    external: true
 
 # touch acme.json; chmod 600 acme.json

@@ -71,4 +71,5 @@ networks:
 
 volumes:
   letsencrypt:
+    external: true
 
