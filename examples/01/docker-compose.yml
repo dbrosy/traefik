@@ -36,3 +36,4 @@ services:
 
 volumes:
   letsencrypt:
+    external: true
