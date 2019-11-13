@@ -21,7 +21,5 @@ log:
 certificatesResolvers:
   letsencrypt:
     acme:
-      #caserver: https://acme-staging-v02.api.letsencrypt.org/directory
-      #email: ${TRAEFIK_ACME_EMAIL}
       storage: /letsencrypt/acme.json
       tlsChallenge: {}
