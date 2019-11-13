@@ -1,0 +1,6 @@
+# ignore configuration file
+.env
+
+# ignore following files
+traefik*.yml
+dynamic*.yml
