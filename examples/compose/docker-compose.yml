@@ -29,12 +29,12 @@ services:
 
       traefik.http.middlewares.redirect.redirectscheme.scheme: https
 
-whoami:
-  image: containous/whoami
-  labels:
-    traefik.enable: true
+  whoami:
+    image: containous/whoami
+    labels:
+      traefik.enable: true
 
-    traefik.http.routers.whoami.entrypoints: websecure
-    traefik.http.routers.whoami.tls: true
-    traefik.http.routers.whoami.rule: Host(`${WHOAMI_DOMAIN}`) && PathPrefix(`/bar`)
-    traefik.http.routers.whoami.middlewares: auth_whoami
+      traefik.http.routers.whoami.entrypoints: websecure
+      traefik.http.routers.whoami.tls: true
+      traefik.http.routers.whoami.rule: Host(`${WHOAMI_DOMAIN}`) && PathPrefix(`/bar`)
+      traefik.http.routers.whoami.middlewares: auth_whoami
