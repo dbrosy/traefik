@@ -1,0 +1,41 @@
+version: 3.5
+
+services:
+
+  traefik:
+    image: traefik:2.0.5
+    command:
+      - --entrypoint.web.address=:80
+      - --entrypoint.websecure.address=:443
+      - --log.level=DEBUG
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --api-insecure
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      traefik.enable: true
+
+      treafik.http.routers.http_catchall.rule: hostregexp(`{host:.+}`)
+      treafik.http.routers.http_catchall.rule.entrypoints: web
+      treafik.http.routers.http_catchall.rule.middlewares: redirect
+
+      traefik.http.middlewares.redirect.redirectscheme.scheme: https
+
+  whoami:
+    image: containous/whoami
+    labels:
+      traefik.enable: true
+
+      traefik.http.routers.whoami.entrypoints: websecure
+      traefik.http.routers.whoami.tls: false
+      traefik.http.routers.whoami.rule: Host(`${WHOAMI_DOMAIN}`) && PathPrefix(`/bar`)
+      traefik.http.routers.whoami.middlewares: auth_whoami
+
+      #traefik.http.middlewares.auth_whoami.basicauth.users: user:$$apr1$$q8eZFHjF$$Fvmkk//V6Btlaf2i/ju5n/
+      traefik.http.middlewares.auth_whoami.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
