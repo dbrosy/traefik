@@ -36,9 +36,9 @@ services:
     labels:
       # Dashboard
       traefik.enable: true
-      # traefik.http.routers.traefik.rule: Host(`${TRAEFIK_DOMAIN}`)
-      #traefik.http.routers.treafik.entrypoints: web
-      #traefik.http.routers.traefik.service: api@internal
+      traefik.http.routers.traefik.rule: Host(`${TRAEFIK_DOMAIN}`)
+      traefik.http.routers.treafik.entrypoints: web
+      traefik.http.routers.traefik.service: api@internal
       #traefik.http.routers.traefik.tls.certresolver: letsencrypt
       #traefik.http.routers.traefik.middlewares: auth_traefik
       #traefik.http.middlewares.auth_traefik.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
