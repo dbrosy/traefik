@@ -28,6 +28,10 @@ services:
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Use local folder for certs: create first - touch acme.json; chmod 600 acme.json
+      - "./acme.json:/acme.json"
+      
+      # Use volume for certs
       - letsencrypt:/letsencrypt
     labels:
       # Dashboard
@@ -59,3 +63,8 @@ services:
       traefik.http.routers.whoami.middlewares: auth_whoami
 
       traefik.http.middlewares.auth_whoami.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
+
+
+volumes:
+  letsencrypt:
+    external: true
