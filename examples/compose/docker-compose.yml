@@ -9,10 +9,11 @@ services:
     command:
       - --entrypoint.web.address=:80
       - --entrypoint.websecure.address=:443
-      - --log.level=DEBUG
+      - --log.level=INFO
       - --providers.docker
       - --providers.docker.exposedbydefault=false
-      - --api-insecure=true
+      - --api.insecure
+
     ports:
       - "80:80"
       - "443:443"
