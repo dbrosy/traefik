@@ -56,7 +56,7 @@ services:
     image: containous/whoami
     container_name: whoami
     labels:
-      traefik.enable: false
+      traefik.enable: true
 
       traefik.http.routers.whoami.entrypoints: websecure
       traefik.http.routers.whoami.tls: true
