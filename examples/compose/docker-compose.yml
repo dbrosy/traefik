@@ -4,6 +4,7 @@ services:
 
   traefik:
     image: traefik:2.0.5
+    container_name: traefik
     command:
       - --entrypoint.web.address=:80
       - --entrypoint.websecure.address=:443
@@ -27,14 +28,12 @@ services:
 
       traefik.http.middlewares.redirect.redirectscheme.scheme: https
 
-  whoami:
-    image: containous/whoami
-    labels:
-      traefik.enable: true
-
-      traefik.http.routers.whoami.entrypoints: websecure
-      traefik.http.routers.whoami.tls: true
-      traefik.http.routers.whoami.rule: Host(`${WHOAMI_DOMAIN}`) && PathPrefix(`/bar`)
-      traefik.http.routers.whoami.middlewares: auth_whoami
-
-      traefik.http.middlewares.auth_whoami.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
+  #whoami:
+  #  image: containous/whoami
+  #  labels:
+  #    traefik.enable: true
+#
+  #    traefik.http.routers.whoami.entrypoints: websecure
+  #    traefik.http.routers.whoami.tls: true
+  #    traefik.http.routers.whoami.rule: Host(`${WHOAMI_DOMAIN}`) && PathPrefix(`/bar`)
+  #    traefik.http.routers.whoami.middlewares: auth_whoami
