@@ -33,7 +33,7 @@ services:
       traefik.enable: true
 
       traefik.http.routers.whoami.entrypoints: websecure
-      traefik.http.routers.whoami.tls: false
+      traefik.http.routers.whoami.tls: true
       traefik.http.routers.whoami.rule: Host(`${WHOAMI_DOMAIN}`) && PathPrefix(`/bar`)
       traefik.http.routers.whoami.middlewares: auth_whoami
 
