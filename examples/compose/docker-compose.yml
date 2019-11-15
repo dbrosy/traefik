@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
     command:
       # Logging
-      - --log.level=INFO
+      - --log.level=${LOG_LEVEL}
       # Entrypoints
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
@@ -63,7 +63,6 @@ services:
       traefik.http.routers.whoami.middlewares: auth_whoami
 
       traefik.http.middlewares.auth_whoami.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
-
 
 volumes:
   letsencrypt:
