@@ -5,6 +5,7 @@ services:
   traefik:
     image: traefik:2.0.5
     container_name: traefik
+    restart: unless-stopped
     command:
       - --entrypoint.web.address=:80
       - --entrypoint.websecure.address=:443
@@ -18,15 +19,15 @@ services:
       - "8080:8080"
 
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      traefik.enable: true
-
-      treafik.http.routers.http_catchall.rule: hostregexp(`{host:.+}`)
-      treafik.http.routers.http_catchall.rule.entrypoints: web
-      treafik.http.routers.http_catchall.rule.middlewares: redirect
-
-      traefik.http.middlewares.redirect.redirectscheme.scheme: https
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+#    labels:
+#      traefik.enable: true
+#
+#      treafik.http.routers.http_catchall.rule: hostregexp(`{host:.+}`)
+#      treafik.http.routers.http_catchall.rule.entrypoints: web
+#      treafik.http.routers.http_catchall.rule.middlewares: redirect
+#
+#      traefik.http.middlewares.redirect.redirectscheme.scheme: https
 
   #whoami:
   #  image: containous/whoami
