@@ -39,10 +39,10 @@ services:
       traefik.http.routers.traefik.rule: Host(`${TRAEFIK_DOMAIN}`)
       traefik.http.routers.treafik.entrypoints: web
       traefik.http.routers.traefik.service: api@internal
-      #traefik.http.routers.traefik.tls.certresolver: letsencrypt
-      #traefik.http.routers.traefik.middlewares: auth_traefik
-      #traefik.http.middlewares.auth_traefik.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
-      #traefik.http.middlewares.restricted_ips.ipwhitelist.sourcerange: ${TRAEFIK_IP_WHITELIST}
+      traefik.http.routers.traefik.tls.certresolver: letsencrypt
+      traefik.http.routers.traefik.middlewares: auth_traefik
+      traefik.http.middlewares.auth_traefik.basicauth.users: ${TRAEFIK_USER}:${TRAEFIK_PASSWORD_HASH}
+      traefik.http.middlewares.restricted_ips.ipwhitelist.sourcerange: ${TRAEFIK_IP_WHITELIST}
 
       # Global redirect http to https
       treafik.http.routers.http_catchall.rule: hostregexp(`{host:.+}`)
@@ -54,6 +54,7 @@ services:
 
   whoami:
     image: containous/whoami
+    container_name: whoami
     labels:
       traefik.enable: false
 
