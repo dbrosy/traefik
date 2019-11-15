@@ -29,10 +29,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       # Use local folder for certs: create first - touch acme.json; chmod 600 acme.json
-      - ./acme.json:/acme.json
+      #- ./acme.json:/acme.json
       
       # Use volume for certs
-      #- letsencrypt:/letsencrypt
+      - letsencrypt:/letsencrypt
     labels:
       # Dashboard
       traefik.enable: true
